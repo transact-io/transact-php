@@ -89,11 +89,6 @@ switch($_REQUEST['action']) {
     );
     echo json_encode($response);
 
- //
-      /*
-
-*/
-
     break;
 
   case 'getPurchasedContent':
