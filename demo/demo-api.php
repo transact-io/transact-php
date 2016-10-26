@@ -85,7 +85,7 @@ switch($_REQUEST['action']) {
     $transact = InitSaleParameters($transact);
 
     $response = array(
-      token => $transact->getToken()
+      'token' => $transact->getToken()
     );
     echo json_encode($response);
 
