@@ -6,6 +6,7 @@
 
     <script src="https://frontend-dot-xsact-1304.appspot.com/assets/js/transact.js"></script>
 
+
     <!-- NOTE transact.js does NOT require jquery,
     just using jQuery here just to facilitate demo -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -26,6 +27,9 @@
 
   <script>
     var package = {};
+
+    // for transact.io devs  local testing enable this.
+    //transactApi.setFrontendUrl('http://localhost:5555/purchase');
 
     $.getJSON("demo-api.php", { 'action' : 'getToken' })
       .done(function(data) {
