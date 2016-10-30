@@ -29,7 +29,10 @@
     var package = {};
 
     // for transact.io devs  local testing enable this.
-    //transactApi.setFrontendUrl('http://localhost:5555/purchase');
+    $( document ).ready(function() {
+      // afer JS loaded, change URL
+      //transactApi.setFrontendUrl('http://localhost:5555/purchase');
+    });
 
     $.getJSON("demo-api.php", { 'action' : 'getToken' })
       .done(function(data) {
