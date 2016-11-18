@@ -27,6 +27,7 @@ class TransactIoMsg {
 
   private $method='CLOSE';
   private $alg='HS256';  // use the SHA 256 Algorithim
+  private $leeway = 600;
 
   function __construct() {
 
@@ -50,6 +51,12 @@ class TransactIoMsg {
   }
   function setClass($val) {
     $this->token['tclass'] = $val;
+  }
+
+  // set leeway in seconds
+  // https://tools.ietf.org/html/rfc7519#section-4.1.4
+  function setLeeway($val) {
+    $this->leeway = $val;
   }
 
   function setMethod($val) {
@@ -101,6 +108,7 @@ class TransactIoMsg {
   }
 
   function decodeToken($token) {
+    JWT::$leeway = $this->leeway; // $leeway in seconds
     return JWT::decode($token, $this->secret, array($this->alg));
   }
 
