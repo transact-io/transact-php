@@ -4,7 +4,7 @@ This is a simple demo API showing how to interact with the
 transact-io.php library
 
 You are free to use this example in any way you wish.
-If you feel this exmaple can be improved please seed
+If you feel this exmaple can be improved please send
 a git pull request
 */
 
