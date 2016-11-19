@@ -43,8 +43,8 @@ class TransactIoMsg {
     $this->token['recipient'] =  (string) $val;
   }
   function setPrice($val) {
-    if ($val < 1 || $val > 1000) {
-      throw new Exception('Price must be betwen 1 and 1000');
+    if ($val < 1 || $val > 100000) {
+      throw new Exception('Price must be betwen 1 and 100000');
     }
 
    $this->token['price'] = (int) $val;
