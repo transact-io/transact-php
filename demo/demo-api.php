@@ -48,7 +48,11 @@ function InitSaleParameters($transact) {
 
   // Required:  set URL associated with this puchase
   // User should be able to return to this URL
-  $transact->setURL('https://example.site/article1/');
+  if (!empty($_REQUEST['url'])) {
+    $transact->setURL($_REQUEST['url']);
+  } else {
+    $transact->setURL('https://example.site/article1/');
+  }
 
   // Recommended: Title for customer to read for the purchase
   $transact->setTitle('PHP Demo Title');
