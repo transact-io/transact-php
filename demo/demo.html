@@ -56,8 +56,13 @@
 
         var jqxhr = $.getJSON("demo-api.php", validation_data)
         .done(function(resp_data) {
-          console.log('Success Response data:', resp_data);
-          $('#paid_content').html(resp_data.content);
+          console.log('Response data:', resp_data);
+          if (resp_data.status == 'OK')
+	    $('#paid_content').html(resp_data.content);
+          else if (resp_data.status == 'ERROR')
+            $('#paid_content').html(resp_data.message);
+          else
+            $('#paid_content').html('Unexpected error');
         })
         .fail(function(resp_data) {
           console.log('Error Response data:', resp_data);
