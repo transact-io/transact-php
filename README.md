@@ -46,8 +46,9 @@ $transact->setURL($_REQUEST['url']);
 $transact->setPrice(2);
 ```
 
-**Optional**:  Set an item or product code.   This can be something
-unique to the article or content you are selling. 
+**Required**:  Set an item or product code.   This can be something
+unique to the article or content you are selling.   The buyer 
+will see this as part of the name of the charge
 ```php
 $transact->setItem('ItemCode1'); // item code
 ```
