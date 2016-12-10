@@ -21,26 +21,50 @@ $transact = new TransactIoMsg(); // get new instance
 ```
 
 
-Set the secret that is in the Developer Settings / Keys of the transact
-publisher menu
+**Required:** Set the secret that is in the Developer Settings / Keys 
+of the transact publisher menu
 ```php
-$transact->setSecret('Signing Secret');
+$transact->setSecret('Signing Secret'); // secret key
 ```
 
 
-Set the Account ID of who recieves the funds
+**Required:** Set the Account ID of who recieves the funds
 ```
-// Required: set ID of who gets paid
-$transact->setRecipient('5206507264147456');
+$transact->setRecipient('5206507264147456'); // Account ID to pay
 ````
 
 
-Required: set the URL of what is being purchased.   
-```
+**Required:** set the URL of what is being purchased.   
+```php
 // Note that the host name MUST match the real name for cross site 
 // messaging to work. 
 $transact->setURL($_REQUEST['url']);
 ```
 
+**Required:**  Set the price of the sale
+```php
+$transact->setPrice(2);
+```
+
+**Optional**:  Set an item or product code.   This can be something
+unique to the article or content you are selling. 
+```php
+$transact->setItem('ItemCode1'); // item code
+```
+
+**Optional**:  Set a Unique ID associated with this sale.  
+```php
+$transact->setUid('UniqueSaleID');
+````
 
 
+**Optional**:  Set meta data you want to save with this sale.  
+```php
+  // Set your own meta data
+  // Note you must keep this short to avoid going over the 1024 byte limt
+  // of the token URL
+  $transact->setMeta(array(
+    'your' => 'data',
+    'anything' => 'you want'
+  ));
+```
