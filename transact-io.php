@@ -19,7 +19,7 @@ class TransactIoMsg {
     'method' => 'CLOSE',  // CLOSE (popup) or POST (to page)
     'price' => 0, // price in cents
     'recipient' => '', // recipient who recieves the funds
-    'tclass' => 'TEST', //Class or Currency to use.  TEST or PROD,
+    'tclass' => 'PROD', //Class or Currency to use.  TEST or PROD,
     'title' => 'Description for Humans to read', // describe
     'uid' => '', // Unique ID to identify
     'url' => '', // URL of what they are buying
