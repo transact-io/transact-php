@@ -30,8 +30,14 @@ class TransactIoMsg {
   private $leeway = 600;
 
   function __construct() {
+    if ($_SERVER['SERVER_PORT'] == 443)
+      $this->token['url'] = 'https://';
+    else
+      $this->token['url'] = 'http://';
 
-   }
+    if (!empty($_SERVER['HTTP_HOST']))
+      $this->token['url'] .= $_SERVER['HTTP_HOST'];
+  }
 
   function setSecret($val) {
     $this->secret = $val;

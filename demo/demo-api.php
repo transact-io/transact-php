@@ -50,6 +50,8 @@ function InitSaleParameters($transact) {
   // User should be able to return to this URL
   if (!empty($_REQUEST['url'])) {
     $transact->setURL($_REQUEST['url']);
+  } else if (!empty($_SERVER['SCRIPT_URI'])) {
+    $transact->setURL($_SERVER['SCRIPT_URI']);
   } else {
     $transact->setURL('https://example.site/article1/');
   }
