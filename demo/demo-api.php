@@ -114,6 +114,7 @@ switch($_REQUEST['action']) {
         'content' => 'SUCESSS PAID CONTENT HERE!',
         'status' => 'OK',
         'subscription' =>  $decoded->sub,
+        'subscription_expires' =>  $decoded->sub_expires,
         'decoded' => $decoded
         ));
      } catch (Exception $e) {
