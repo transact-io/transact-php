@@ -18,7 +18,7 @@ class TransactIoMsg {
     'item' => '',   //code for what they are buying
     'method' => 'CLOSE',  // CLOSE (popup) or POST (to page)
     'price' => 0, // price in cents
-    'recipient' => '', // recipient who recieves the funds
+    'recipient' => '', // recipient who receives the funds
     'tclass' => 'PROD', //Class or Currency to use.  TEST or PROD,
     'title' => 'Description for Humans to read', // describe
     'uid' => '', // Unique ID to identify
@@ -105,6 +105,22 @@ class TransactIoMsg {
 
   function getToken() {
     $this->token['iat'] = time();  // set timestamp
+
+    if (empty($this->secret))
+      throw new Exception('Must set signing secret');
+
+    $token = JWT::encode($this->token, $this->secret);
+    return $token;
+  }
+
+  function getSubscriptionToken() {
+
+    $this->token['iat'] = time();  // set timestamp
+
+    unset($this->token['item']);
+    unset($this->token['price']);
+    $this->token['sub'] = TRUE;
+    $this->token['title'] = 'Subscription';
 
     if (empty($this->secret))
       throw new Exception('Must set signing secret');
