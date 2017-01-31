@@ -43,7 +43,11 @@
         Paid content here after puchase
       </span>
     </div>
-
+    <div id='has_subscription'>
+      <span>
+        Subscrition Status unknown
+      </span>
+    </div>
   <script>
     var package = {};
     var purchase_token = {}; // token used for buying single item
@@ -116,16 +120,23 @@
       console.log(popup);
 
       if (event && event.data) {
-        console.log(event.data);
+        console.log('event data', event.data);
         var validation_data = event.data;
         validation_data.action = 'getPurchasedContent';
 
         var jqxhr = $.getJSON("demo-api.php", validation_data)
         .done(function(resp_data) {
           console.log('Response data:', resp_data);
-          if (resp_data.status == 'OK')
-	    $('#paid_content').html(resp_data.content);
-          else if (resp_data.status == 'ERROR')
+          if (resp_data.status == 'OK') {
+            $('#paid_content').html(resp_data.content);
+
+            var sub_content = 'NO Subscription';
+            if (resp_data.subscription) {
+              sub_content = 'HAS Subscription';
+            }
+            $('#has_subscription').html(sub_content);
+
+          } else if (resp_data.status == 'ERROR')
             $('#paid_content').html(resp_data.message);
           else
             $('#paid_content').html('Unexpected error');

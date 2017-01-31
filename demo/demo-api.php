@@ -113,6 +113,7 @@ switch($_REQUEST['action']) {
       echo json_encode(array(
         'content' => 'SUCESSS PAID CONTENT HERE!',
         'status' => 'OK',
+        'subscription' =>  $decoded->sub,
         'decoded' => $decoded
         ));
      } catch (Exception $e) {
