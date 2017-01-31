@@ -16,7 +16,26 @@
   <body>
     <h1>Test API v1</h1>
 
-    <button onclick="transactApi.authorize(PurchasePopUpClosed);">Purchase on Xsact</button>
+    <table>
+      <tr><th colspan="2">Server To use</th></tr>
+      <tr>
+        <td><input type="radio" name="server" value="https://transact.io/purchase" checked="checked" onchange="setServer()"></td>
+        <td>https://transact.io/purchase</td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="server" value="http://localhost:5555/purchase" onchange="setServer()"></td>
+        <td>http://localhost:5555/purchase</td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="server" value="OTHER" onchange="setServer()"></td>
+        <td>Other:<input type="text" id="other_server_input" size="70"
+         value="https://frontend-dot-xsact-1304.appspot.com/purchase" onchange="setServer()"></td>
+      </tr>
+    </table>
+
+
+    <button onclick="doPurcase()">Purchase on Xsact</button>
+    <button onclick="doSubscription()">Subscribe</button>
     <br>
     <p>
     <div id='paid_content'>
@@ -27,25 +46,70 @@
 
   <script>
     var package = {};
+    var purchase_token = {}; // token used for buying single item
+    var subscribe_token = {}; // subscription
 
-    // for transact.io devs  local testing enable this.
+    // set the server weather we are using development / test server or prod
+    // Note users of this library probally never have to set this, you will
+    // allways use transact.io
+    function setServer() {
+      console.log('setServer');
+      var server = $('input[name=server]:checked').val();
+      if (server == 'OTHER') {
+        // Other selected, read other input
+        server = $('#other_server_input').val();
+      }
+      transactApi.setFrontendUrl(server);
+
+    }
+
     $( document ).ready(function() {
-      // afer JS loaded, change URL
-       if (document.location.host == 'localhost')
-         transactApi.setFrontendUrl('http://localhost:5555/purchase');
-    });
+      setServer(); // init
 
-    var data = { 'action' : 'getToken', url : document.location.href };
-    $.getJSON("demo-api.php", data)
+
+      // get token for us
+      var data = { 'action' : 'getToken', url : document.location.href };
+      $.getJSON("demo-api.php", data)
       .done(function(data) {
-        console.log('got token: '+ data.token);
-        transactApi.setToken(data.token);
-
+        console.log('got purchase_token: '+ data.token);
+        purchase_token = data.token;
       })
       .fail(function(resp_data) {
           console.log('Error Response data:', resp_data);
           alert('failed to get sessionId');
+      });
+
+      var data = { 'action' : 'getSubscriptionToken', url : document.location.href };
+      $.getJSON("demo-api.php", data)
+      .done(function(data) {
+        console.log('got subscribe_token: '+ data.token);
+        subscribe_token = data.token;
       })
+      .fail(function(resp_data) {
+          console.log('Error Response data:', resp_data);
+          alert('failed to get sessionId');
+      });
+    });
+
+    function doPurcase() {
+      console.log('doPurcase');
+
+      transactApi.setToken(purchase_token);
+
+      // Call authorize() which will load the popup,
+      // passing in callback function (PurchasePopUpClosed)
+      transactApi.authorize(PurchasePopUpClosed);
+    }
+
+    function doSubscription() {
+      console.log('doPurcase');
+
+      transactApi.setToken(subscribe_token);
+
+      // Call authorize() which will load the popup,
+      // passing in callback function (PurchasePopUpClosed)
+      transactApi.authorize(PurchasePopUpClosed);
+    }
 
     function PurchasePopUpClosed(popup, event) {
       console.log('PurchasePopUpClosed');

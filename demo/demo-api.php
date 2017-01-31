@@ -96,6 +96,15 @@ switch($_REQUEST['action']) {
     echo json_encode($response);
 
     break;
+  case 'getSubscriptionToken':
+    $transact = InitSaleParameters($transact);
+
+    $response = array(
+      'token' => $transact->getSubscriptionToken()
+    );
+    echo json_encode($response);
+
+    break;
 
   case 'getPurchasedContent':
 
